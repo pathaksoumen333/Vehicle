@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Vehicle Routing Problem Solver</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7fa; /* Light cyan background */
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #00796b; /* Dark teal color */
+            text-align: center;
+        }
+
+        h2 {
+            color: #004d40; /* Darker teal for section headings */
+            margin-top: 30px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #004d40;
+        }
+
+        input[type="text"], input[type="number"] {
+            width: 200px;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 2px solid #00796b;
+            border-radius: 5px;
+            transition: border 0.3s;
+        }
+
+        input[type="text"]:focus, input[type="number"]:focus {
+            border-color: #004d40; /* Darker teal on focus */
+            outline: none;
+        }
+
+        button {
+            background-color: #00796b; /* Teal color */
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #004d40; /* Darker teal on hover */
+        }
+
+        #welcome-message {
+            text-align: center;
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #00796b;
+        }
+
+        .vehicle, .customer {
+            background-color: #ffffff; /* White background for input sections */
+            padding: 15px;
+            border: 1px solid #00796b;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .vehicle:hover, .customer:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <h1>Vehicle Routing Problem Solver</h1>
+    <div id="welcome-message">
+        Welcome! Use this tool to assign customers to vehicles efficiently using the Least Cost Branch and Bound (LCBB) algorithm.
+    </div>
+    
+    <form action="/solveVrp" method="post">
+        <h2>Vehicles</h2>
+        <div id="vehicles">
+            <div class="vehicle">
+                <label for="vehicleId">Vehicle ID:</label>
+                <input type="text" name="vehicleIds" required>
+                <label for="vehicleCapacity">Capacity:</label>
+                <input type="number" name="vehicleCapacities" required>
+            </div>
+        </div>
+        <button type="button" onclick="addVehicle()">Add Another Vehicle</button>
+
+        <h2>Customers</h2>
+        <div id="customers">
+            <div class="customer">
+                <label for="customerName">Customer Name:</label>
+                <input type="text" name="customerNames" required>
+                <label for="customerDemand">Demand:</label>
+                <input type="number" name="customerDemands" required>
+            </div>
+        </div>
+        <button type="button" onclick="addCustomer()">Add Another Customer</button>
+
+        <br><br>
+        <button type="submit">Solve VRP</button>
+    </form>
+
+    <script>
+        function addVehicle() {
+            const vehicleDiv = document.createElement('div');
+            vehicleDiv.className = 'vehicle';
+            vehicleDiv.innerHTML = `
+                <label for="vehicleId">Vehicle ID:</label>
+                <input type="text" name="vehicleIds" required>
+                <label for="vehicleCapacity">Capacity:</label>
+                <input type="number" name="vehicleCapacities" required>
+            `;
+            document.getElementById('vehicles').appendChild(vehicleDiv);
+        }
+
+        function addCustomer() {
+            const customerDiv = document.createElement('div');
+            customerDiv.className = 'customer';
+            customerDiv.innerHTML = `
+                <label for="customerName">Customer Name:</label>
+                <input type="text" name="customerNames" required>
+                <label for="customerDemand">Demand:</label>
+                <input type="number" name="customerDemands" required>
+            `;
+            document.getElementById('customers').appendChild(customerDiv);
+        }
+    </script>
+</body>
+</html>
